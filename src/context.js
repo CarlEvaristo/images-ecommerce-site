@@ -10,16 +10,29 @@ function ContextProvider(props) {
         fetch(`https://api.unsplash.com/search/photos?query=bahamas&per_page=20&content_filter=high&client_id=${key}`)
         .then(res => res.json())
         .then(data => {
-            setPhotos(data.results)}
+            data = data.results.map(item => ({...item, isFavorite:false}))
+            setPhotos(data)}
         )
     
     },[])
 
+    function toggleFavorite(id) {
+        const updatedPhotos = photos.map(photo => {
+            if (photo.id === id) {
+                return {...photo, isFavorite: !photo.isFavorite}
+            } else {
+                return photo
+            }
+        })
+        setPhotos(updatedPhotos)
+    }
+
     return (
-        <Context.Provider value={photos}>
+        <Context.Provider value={{photos, toggleFavorite}}>
             {props.children}
         </Context.Provider>
     )
 
 }
 export {ContextProvider, Context}
+

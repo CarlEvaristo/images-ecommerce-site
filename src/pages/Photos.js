@@ -4,15 +4,16 @@ import Image from "../components/Image"
 import {getClass} from "../utils"
 
 function Photos() {
-    const context = React.useContext(Context)
-    const imageElements = context.map((image,index) => (
-        <Image 
-            img={image.urls.regular} 
+    const {photos} = React.useContext(Context)
+
+    const imageElements = photos.map((image, index) => {
+        return <Image 
+            img={image} 
             key={image.id} 
             alt={`${image.id}`}
-            className={getClass(index)}  
+            className={getClass(index)} 
         />
-    ))
+    })
 
     return (
         <main className="photos">
