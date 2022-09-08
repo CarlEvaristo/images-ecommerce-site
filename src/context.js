@@ -7,7 +7,7 @@ function ContextProvider(props) {
     const [photos, setPhotos] = React.useState([])
 
     useEffect(()=>{
-        fetch(`https://api.unsplash.com/search/photos?query=bahamas&per_page=20&content_filter=high&client_id=${key}`)
+        fetch(`https://api.unsplash.com/search/photos?query=algarve&per_page=20&content_filter=high&client_id=${key}`)
         .then(res => res.json())
         .then(data => {
             data = data.results.map(item => ({...item, isFavorite:false}))
