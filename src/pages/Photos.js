@@ -10,7 +10,6 @@ function Photos() {
         return <Image 
             img={image} 
             key={image.id} 
-            alt={`${image.id}`}
             className={getClass(index)} 
         />
     })

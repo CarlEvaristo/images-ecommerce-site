@@ -1,14 +1,23 @@
 import React from "react"
 import {Context} from "../context"
+import PropTypes from "prop-types"  
 
-export default function Image({className, img, alt}) {
+function Image({className, img}) {
 
     const [hovered, setHovered] = React.useState(false)
-    const {toggleFavorite} = React.useContext(Context)
+    const {toggleFavorite, cartItems, addToCart, removeFromCart} = React.useContext(Context)
 
     function handleHover() {
         setHovered(prev => !prev)
     }
+
+    const favoriteIcon = img.isFavorite ? 
+        <i className={"favorite ri-heart-fill"} onClick={()=>toggleFavorite(img.id)}></i> :
+        <i className={"favorite ri-heart-line"} onClick={()=>toggleFavorite(img.id)}></i>
+
+    const cartIcon = cartItems.some(e => e.id === img.id) ? 
+        <i className={"cart ri-shopping-cart-fill"} onClick={() => removeFromCart(img.id)}></i> :
+        <i className={"cart ri-add-circle-line"} onClick={() => addToCart(img)} ></i>
 
     return(
         <div    
@@ -17,25 +26,29 @@ export default function Image({className, img, alt}) {
             onMouseOut={handleHover}>
                 {hovered && 
                     <>
-                        <i className={`favorite ${img.isFavorite ? "ri-heart-fill" : "ri-heart-line" }`} onClick={() => toggleFavorite(img.id)}></i>
-                        <i className="ri-add-circle-line cart"></i>
+                        {favoriteIcon}
+                        {cartIcon}
                     </>
                 }
                 <img 
                     src={img.urls.regular} 
                     className="image-grid" 
-                    alt={alt}
+                    alt={img.id}
                 />
         </div>
     )
 }
 
+Image.propTypes = {	
+    className: PropTypes.string,
+    img: PropTypes.shape({
+        isFavorite: PropTypes.bool,
+        urls: PropTypes.shape({
+            regular: PropTypes.string
+        }),
+        id: PropTypes.string
+    })
+}
 
-// # Challenge
 
-// Add ability to toggle an image's `isFavorited` property by clicking the heart icon (filled heart doesn't need to display on the image yet)
-
-// 1. Add a toggleFavorite method to context. It should take an `id` parameter and update the array of allPhotos by flipping the `isFavorited` property of the photo with the matching `id`
-//     a. Have this function also console.log something so we know it's running correctly
-//     b. Don't try to modify the individual image object only. Make sure to provide a whole new array to context with the one item with the matching `id` being changed.
-// 2. Make it so clicking the heart icon on any given image runs this method
+export default Image

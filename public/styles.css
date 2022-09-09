@@ -10,6 +10,7 @@ html, body {
     font-family: 'Oswald', sans-serif;
     margin: 0;
     padding: 0;
+    text-align: right;
 }
 
 main.photos {
@@ -59,6 +60,8 @@ div.order-button > button:disabled {
     justify-content: space-between;
     align-items: center;
     margin: 20px 0;
+    border-bottom: solid 1px grey;
+    padding-bottom: 20px;
 }
 
 .cart-item img {
@@ -78,6 +81,7 @@ img.image-grid {
 
 .favorite {
     color: var(--red);
+    font-weight: 700;
     font-size: 1.2rem;
     position: absolute;
     top: 5px;
@@ -86,23 +90,25 @@ img.image-grid {
 }
 
 .ri-heart-fill {
-    opacity: .7;
+    opacity: 1;
 }
 
 .ri-delete-bin-line, .ri-delete-bin-fill {
     font-size: 1.3em;
     cursor: pointer;
+    margin-left:1em;
 }
 
 .cart {
-    color: var(--blue);
+    color: #fff;
     font-size: 1.2rem;
+    font-weight: 700;
     position: absolute;
     top: 5px;
     right: 5px;
     cursor: pointer;
+    text-shadow: rgba(0, 0, 0, 0.723) 0px 0px 3px; 
 }
- 
 .wide {
     grid-column: span 2;
 }
